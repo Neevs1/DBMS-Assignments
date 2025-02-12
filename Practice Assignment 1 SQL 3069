@@ -1,0 +1,533 @@
+mysql> use Company_3069;
+Database changed
+mysql> CREATE TABLE EMP(
+    -> 
+: 
+    -> EMPNO int,
+    -> ENAME varchar(40),
+    -> JOB char(400,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',' at line 4
+mysql> CREATE TABLE EMP( EMPNO int, ENAME varchar(40), JOB char(40),MGR int, HIREDATE date, SAL int, COMM int, DEPTNO int);
+Query OK, 0 rows affected (0.53 sec)
+
+mysql> CREATE TABLE (DEPTNO int, DNAME varchar(40),LOC varchar(40));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(DEPTNO int, DNAME varchar(40),LOC varchar(40))' at line 1
+mysql> CREATE TABLE DEPT (DEPTNO int, DNAME varchar(40),LOC varchar(40));
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_Company_3069 |
++------------------------+
+| DEPT                   |
+| EMP                    |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO DEPT values (10,'Accounting','New York');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO DEPT values (20,'Research','Dallas');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> INSERT INTO DEPT values (30,'Sales','Chicago');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO DEPT values (40,'Operations','Boston');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> Select * from DEPT
+    -> ;
++--------+------------+----------+
+| DEPTNO | DNAME      | LOC      |
++--------+------------+----------+
+|     10 | Accounting | New York |
+|     20 | Research   | Dallas   |
+|     30 | Sales      | Chicago  |
+|     40 | Operations | Boston   |
++--------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMP values (7369,'Smith','Clerk',7902,'1980-12-17',800,,20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',20)' at line 1
+mysql> INSERT INTO EMP values (7369,'Smith','Clerk',7902,'1980-12-17',800,NULL,20);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> Select * from EMP;
++-------+-------+-------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-------+------+------------+------+------+--------+
+|  7369 | Smith | Clerk | 7902 | 1980-12-17 |  800 | NULL |     20 |
++-------+-------+-------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO EMP values (7499,'Allen','Salesman',7698,'1980-02-20',1600,300,30);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> UPDATE EMP SET HIREDATE = '1981-02-20' where EMPNO = 7499;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from *;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*' at line 1
+mysql> Select * from EMP;
++-------+-------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+----------+------+------------+------+------+--------+
+|  7369 | Smith | Clerk    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | Allen | Salesman | 7698 | 1981-02-20 | 1600 |  300 |     30 |
++-------+-------+----------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMP values (7521,'Ward','Salesman',7698,'1981-02-21',1250,500,30),
+    -> (7566,'Jones','Manager',7839,'1981-04-02',2975,NULL,30),
+    -> (7654,'Martin','Salesman',7698,'1981-02-21',1250,500,30);
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | Smith  | Clerk    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | Allen  | Salesman | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | Ward   | Salesman | 7698 | 1981-02-21 | 1250 |  500 |     30 |
+|  7566 | Jones  | Manager  | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7654 | Martin | Salesman | 7698 | 1981-02-21 | 1250 |  500 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE EMP SET HIREDATE = '1981-09-28' AND COMM = '1400' where EMPNO = 7499;
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: '1981-09-28'
+mysql> UPDATE EMP SET  COMM = '1400' where EMPNO = 7499;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET HIREDATE = '1981-09-28' where EMPNO = 7499;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | Smith  | Clerk    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | Allen  | Salesman | 7698 | 1981-09-28 | 1600 | 1400 |     30 |
+|  7521 | Ward   | Salesman | 7698 | 1981-02-21 | 1250 |  500 |     30 |
+|  7566 | Jones  | Manager  | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7654 | Martin | Salesman | 7698 | 1981-02-21 | 1250 |  500 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE EMP SET HIREDATE = '1981-02-20' where EMPNO = 7499;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET  COMM = '300' where EMPNO = 7499;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET  COMM = '1400' where EMPNO = 7654;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMP SET HIREDATE = '1981-09-28' where EMPNO = 7654;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+--------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+----------+------+------------+------+------+--------+
+|  7369 | Smith  | Clerk    | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | Allen  | Salesman | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | Ward   | Salesman | 7698 | 1981-02-21 | 1250 |  500 |     30 |
+|  7566 | Jones  | Manager  | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7654 | Martin | Salesman | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
++-------+--------+----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMP values (7698,'Blake','Manager',7839,'1980-05-01',2850,NULL,30),
+    -> (7782,'Clark','Manager',7839,'1981-06-09',2450,NULL,10),
+    -> (7788,'Scott','Analyst',7566,'1982-12-09',3000,NULL,20),
+    -> (7839,'King','President',NULL,'1981-11-17',5000,NULL,20),
+    -> (7844,'Turner','Salesman',7698,'1981-09-08',1500,0,30),
+    -> (7876,'Adams','Clerk',7788,'1983-01-12',1100,NULL,20),
+    -> (7900,'James','Clerk',7698,'1981-12-03',950,NULL,30),
+    -> (7902,'Ford','Analyst',7566,'1981-12-04',3000,NULL,20),
+    -> (7934,'Miller','Clerk',7782,'1982-01-23',1300,NULL,30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 9
+mysql> INSERT INTO EMP values (7698,'Blake','Manager',7839,'1980-05-01',2850,NULL,30), (7782,'Clark','Manager',7839,'1981-06-09',2450,NULL,10), (7788,'Scott','Analyst',7566,'1982-12-09',3000,NULL,20), (7839,'King','President',NULL,'1981-11-17',5000,NULL,20), (7844,'Turner','Salesman',7698,'1981-09-08',1500,0,30), (7876,'Adams','Clerk',7788,'1983-01-12',1100,NULL,20), (7900,'James','Clerk',7698,'1981-12-03',950,NULL,30), (7902,'Ford','Analyst',7566,'1981-12-04',3000,NULL,20), (7934,'Miller','Clerk',7782,'1982-01-23',1300,NULL,30);
+Query OK, 9 rows affected (0.07 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | Smith  | Clerk     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | Allen  | Salesman  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | Ward   | Salesman  | 7698 | 1981-02-21 | 1250 |  500 |     30 |
+|  7566 | Jones  | Manager   | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7654 | Martin | Salesman  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | Blake  | Manager   | 7839 | 1980-05-01 | 2850 | NULL |     30 |
+|  7782 | Clark  | Manager   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | Scott  | Analyst   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | King   | President | NULL | 1981-11-17 | 5000 | NULL |     20 |
+|  7844 | Turner | Salesman  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7876 | Adams  | Clerk     | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7900 | James  | Clerk     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | Ford   | Analyst   | 7566 | 1981-12-04 | 3000 | NULL |     20 |
+|  7934 | Miller | Clerk     | 7782 | 1982-01-23 | 1300 | NULL |     30 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE JOB = 'Salesman' AND 'Clerk';
+Empty set, 1 warning (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE JOB = 'Salesman' OR 'Clerk';
++--------+
+| ENAME  |
++--------+
+| Allen  |
+| Ward   |
+| Martin |
+| Turner |
++--------+
+4 rows in set, 1 warning (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE JOB = 'Salesman' OR JOB = 'Analyst';
++--------+
+| ENAME  |
++--------+
+| Allen  |
+| Ward   |
+| Martin |
+| Scott  |
+| Turner |
+| Ford   |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE HIREDATE < '1980-09-30';
++-------+
+| ENAME |
++-------+
+| Blake |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE JOB NOT = 'Manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= 'Manager'' at line 1
+mysql> SELECT ENAME FROM EMP WHERE JOB NOT 'Manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''Manager'' at line 1
+mysql> SELECT ENAME FROM EMP WHERE JOB != 'Manager';
++--------+
+| ENAME  |
++--------+
+| Smith  |
+| Allen  |
+| Ward   |
+| Martin |
+| Scott  |
+| King   |
+| Turner |
+| Adams  |
+| James  |
+| Ford   |
+| Miller |
++--------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE EMPNO = 7369 OR EMPNO = 7521 OR EMPNO = 7839 OR EMPNO = 7934 OR EMPNO = 7788;
++--------+
+| ENAME  |
++--------+
+| Smith  |
+| Ward   |
+| Scott  |
+| King   |
+| Miller |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE DEPTNO != 30 AND DEPTNO != 40 AND DEPTNO !=10;
++-------+
+| ENAME |
++-------+
+| Smith |
+| Scott |
+| King  |
+| Adams |
+| Ford  |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE HIREDATE < '1981-12-31' AND HIREDATE > '1981-06-30';
++--------+
+| ENAME  |
++--------+
+| Martin |
+| King   |
+| Turner |
+| James  |
+| Ford   |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT JOB FROM EMP;
++-----------+
+| JOB       |
++-----------+
+| Clerk     |
+| Salesman  |
+| Manager   |
+| Analyst   |
+| President |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ENAME WHERE COMM = 'NULL';
+ERROR 1054 (42S22): Unknown column 'ENAME' in 'field list'
+mysql> SELECT ENAME FROM EMP  WHERE COMM = 'NULL';
++--------+
+| ENAME  |
++--------+
+| Turner |
++--------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP  WHERE COMM = NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE COMM = NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE COMM IS NULL;
++--------+
+| ENAME  |
++--------+
+| Smith  |
+| Jones  |
+| Blake  |
+| Clark  |
+| Scott  |
+| King   |
+| Adams  |
+| James  |
+| Ford   |
+| Miller |
++--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT ENAME,JOB FROM EMP WHERE MGR IS NULL;
++-------+-----------+
+| ENAME | JOB       |
++-------+-----------+
+| King  | President |
++-------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ENAME,JOB FROM EMP WHERE DEPTNO IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT ENAME,JOB FROM EMP WHERE DEPTNO IS NOT NULL;
++--------+-----------+
+| ENAME  | JOB       |
++--------+-----------+
+| Smith  | Clerk     |
+| Allen  | Salesman  |
+| Ward   | Salesman  |
+| Jones  | Manager   |
+| Martin | Salesman  |
+| Blake  | Manager   |
+| Clark  | Manager   |
+| Scott  | Analyst   |
+| King   | President |
+| Turner | Salesman  |
+| Adams  | Clerk     |
+| James  | Clerk     |
+| Ford   | Analyst   |
+| Miller | Clerk     |
++--------+-----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE "S%";
++-------+
+| ENAME |
++-------+
+| Smith |
+| Scott |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE "_i%";
++--------+
+| ENAME  |
++--------+
+| King   |
+| Miller |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT COUNT FROM EMP;
+ERROR 1054 (42S22): Unknown column 'COUNT' in 'field list'
+mysql> SELECT COUNT(ENAME) AS ENAME FROM EMP;
++-------+
+| ENAME |
++-------+
+|    14 |
++-------+
+1 row in set (0.03 sec)
+
+mysql> SELECT COUNT(DISTINCT JOB) AS JOBS FROM EMP;
++------+
+| JOBS |
++------+
+|    5 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sum(SAL) AS TOTAL_SAL FROM EMP;
++-----------+
+| TOTAL_SAL |
++-----------+
+|     29025 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(SAL) AS MINIMUM,MAX(SAL) AS MAXIMUM,AVG(SAL) AS AVERAGE FROM EMP;
++---------+---------+-----------+
+| MINIMUM | MAXIMUM | AVERAGE   |
++---------+---------+-----------+
+|     800 |    5000 | 2073.2143 |
++---------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(SAL WHERE JOB = 'Salesman') AS Salesman_Min from EMP;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE JOB = 'Salesman') AS Salesman_Min from EMP' at line 1
+mysql> SELECT MIN(SAL) AS Salesman_Min from EMP where JOB = 'Salesman';
++--------------+
+| Salesman_Min |
++--------------+
+|         1250 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(ENAME) AS Count,AVG(SAL) AS Avg_Salary from EMP where DEPTNO =20;
++-------+------------+
+| Count | Avg_Salary |
++-------+------------+
+|     5 |  2580.0000 |
++-------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ENAME,SAL,SAL/10 AS PF from EMP;
++--------+------+----------+
+| ENAME  | SAL  | PF       |
++--------+------+----------+
+| Smith  |  800 |  80.0000 |
+| Allen  | 1600 | 160.0000 |
+| Ward   | 1250 | 125.0000 |
+| Jones  | 2975 | 297.5000 |
+| Martin | 1250 | 125.0000 |
+| Blake  | 2850 | 285.0000 |
+| Clark  | 2450 | 245.0000 |
+| Scott  | 3000 | 300.0000 |
+| King   | 5000 | 500.0000 |
+| Turner | 1500 | 150.0000 |
+| Adams  | 1100 | 110.0000 |
+| James  |  950 |  95.0000 |
+| Ford   | 3000 | 300.0000 |
+| Miller | 1300 | 130.0000 |
++--------+------+----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ENAME from EMP where datediff(now(),HIREDATE)>2;
++--------+
+| ENAME  |
++--------+
+| Smith  |
+| Allen  |
+| Ward   |
+| Jones  |
+| Martin |
+| Blake  |
+| Clark  |
+| Scott  |
+| King   |
+| Turner |
+| Adams  |
+| James  |
+| Ford   |
+| Miller |
++--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * from EMP ORDER BY SAL ASC;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | Smith  | Clerk     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7900 | James  | Clerk     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7876 | Adams  | Clerk     | 7788 | 1983-01-12 | 1100 | NULL |     20 |
+|  7521 | Ward   | Salesman  | 7698 | 1981-02-21 | 1250 |  500 |     30 |
+|  7654 | Martin | Salesman  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7934 | Miller | Clerk     | 7782 | 1982-01-23 | 1300 | NULL |     30 |
+|  7844 | Turner | Salesman  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7499 | Allen  | Salesman  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7782 | Clark  | Manager   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7698 | Blake  | Manager   | 7839 | 1980-05-01 | 2850 | NULL |     30 |
+|  7566 | Jones  | Manager   | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7788 | Scott  | Analyst   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7902 | Ford   | Analyst   | 7566 | 1981-12-04 | 3000 | NULL |     20 |
+|  7839 | King   | President | NULL | 1981-11-17 | 5000 | NULL |     20 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ENAME,HIREDATE from EMP ORDER BY HIREDATE DESC;
++--------+------------+
+| ENAME  | HIREDATE   |
++--------+------------+
+| Adams  | 1983-01-12 |
+| Scott  | 1982-12-09 |
+| Miller | 1982-01-23 |
+| Ford   | 1981-12-04 |
+| James  | 1981-12-03 |
+| King   | 1981-11-17 |
+| Martin | 1981-09-28 |
+| Turner | 1981-09-08 |
+| Clark  | 1981-06-09 |
+| Jones  | 1981-04-02 |
+| Ward   | 1981-02-21 |
+| Allen  | 1981-02-20 |
+| Smith  | 1980-12-17 |
+| Blake  | 1980-05-01 |
++--------+------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT ENAME,SAL,SAL/10 AS PF,SAL/2 AS HRA,SAL*3/10 AS DA,(SAL+PF+DA+HRA) AS GROSS from EMP ORDER BY GROSS;
+ERROR 1054 (42S22): Unknown column 'PF' in 'field list'
+mysql> SELECT ENAME,SAL,SAL/10 AS PF,SAL/2 AS HRA,SAL*3/10 AS DA,(SAL+SAL/10+SAL/2+SAL*3/10) AS GROSS from EMP ORDER BY SAL ASC;
++--------+------+----------+-----------+-----------+-----------+
+| ENAME  | SAL  | PF       | HRA       | DA        | GROSS     |
++--------+------+----------+-----------+-----------+-----------+
+| Smith  |  800 |  80.0000 |  400.0000 |  240.0000 | 1520.0000 |
+| James  |  950 |  95.0000 |  475.0000 |  285.0000 | 1805.0000 |
+| Adams  | 1100 | 110.0000 |  550.0000 |  330.0000 | 2090.0000 |
+| Ward   | 1250 | 125.0000 |  625.0000 |  375.0000 | 2375.0000 |
+| Martin | 1250 | 125.0000 |  625.0000 |  375.0000 | 2375.0000 |
+| Miller | 1300 | 130.0000 |  650.0000 |  390.0000 | 2470.0000 |
+| Turner | 1500 | 150.0000 |  750.0000 |  450.0000 | 2850.0000 |
+| Allen  | 1600 | 160.0000 |  800.0000 |  480.0000 | 3040.0000 |
+| Clark  | 2450 | 245.0000 | 1225.0000 |  735.0000 | 4655.0000 |
+| Blake  | 2850 | 285.0000 | 1425.0000 |  855.0000 | 5415.0000 |
+| Jones  | 2975 | 297.5000 | 1487.5000 |  892.5000 | 5652.5000 |
+| Scott  | 3000 | 300.0000 | 1500.0000 |  900.0000 | 5700.0000 |
+| Ford   | 3000 | 300.0000 | 1500.0000 |  900.0000 | 5700.0000 |
+| King   | 5000 | 500.0000 | 2500.0000 | 1500.0000 | 9500.0000 |
++--------+------+----------+-----------+-----------+-----------+
+14 rows in set (0.00 sec)
+
+
