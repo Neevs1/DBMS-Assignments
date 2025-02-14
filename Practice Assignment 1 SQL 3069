@@ -591,6 +591,87 @@ mysql> SELECT DEPTNO,SUM(SAL),MIN(SAL),MAX(SAL),AVG(SAL) FROM EMP WHERE DEPTNO=2
 +-----------+----------+----------+----------+-----------+
 2 rows in set (0.00 sec)
 
+mysql> SELECT * FROM EMP WHERE DAYNAME(HIREDATE) = 'Friday';
++-------+-------+----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB      | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+----------+------+------------+------+------+--------+
+|  7499 | Allen | Salesman | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7902 | Ford  | Analyst  | 7566 | 1981-12-04 | 3000 | NULL |     20 |
++-------+-------+----------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE MONTH(HIREDATE) >9;
++-------+-------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-----------+------+------------+------+------+--------+
+|  7369 | Smith | Clerk     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7788 | Scott | Analyst   | 7566 | 1982-12-09 | 3000 | NULL |     20 |
+|  7839 | King  | President | NULL | 1981-11-17 | 5000 | NULL |     20 |
+|  7900 | James | Clerk     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | Ford  | Analyst   | 7566 | 1981-12-04 | 3000 | NULL |     20 |
++-------+-------+-----------+------+------------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE YEAR(HIREDATE)-YEAR(NOW())>15 AND YEAR(HIREDATE)-YEAR(NOW())<20;
+Empty set (0.00 sec)
+
+mysql> SELECT ENAME,QUARTER(HIREDATE) FROM EMP;
++--------+-------------------+
+| ENAME  | QUARTER(HIREDATE) |
++--------+-------------------+
+| Smith  |                 4 |
+| Allen  |                 1 |
+| Ward   |                 1 |
+| Jones  |                 2 |
+| Martin |                 3 |
+| Blake  |                 2 |
+| Clark  |                 2 |
+| Scott  |                 4 |
+| King   |                 4 |
+| Turner |                 3 |
+| Adams  |                 1 |
+| James  |                 4 |
+| Ford   |                 4 |
+| Miller |                 1 |
++--------+-------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE MONTHNAME(HIREDATE) = 'June';
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7782 | Clark | Manager | 7839 | 1981-06-09 | 2450 | NULL |     10 |
++-------+-------+---------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE MONTH(HIREDATE) = 8;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMP ORDER BY SAL DESC LIMIT 3,1;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | Jones | Manager | 7839 | 1981-04-02 | 2975 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMP ORDER BY SAL ASC LIMIT 1,1;
++-------+-------+-------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+-------+------+------------+------+------+--------+
+|  7900 | James | Clerk | 7698 | 1981-12-03 |  950 | NULL |     30 |
++-------+-------+-------+------+------------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM EMP ORDER BY SAL DESC LIMIT 3,2;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | Jones | Manager | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7698 | Blake | Manager | 7839 | 1980-05-01 | 2850 | NULL |     30 |
++-------+-------+---------+------+------------+------+------+--------+
+2 rows in set (0.00 sec)
+
 
 
 
