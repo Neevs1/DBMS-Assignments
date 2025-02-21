@@ -672,6 +672,17 @@ mysql> SELECT * FROM EMP ORDER BY SAL DESC LIMIT 3,2;
 +-------+-------+---------+------+------------+------+------+--------+
 2 rows in set (0.00 sec)
 
+2. To find employees who were hired in the first week of any month.
+mysql> Select * from EMP where DAYOFMONTH(HIREDATE) BETWEEN 1 AND 7 AND WEEKDAY(HIREDATE)-DAYOFMONTH(HIREDATE)>=0;
++-------+-------+---------+------+------------+------+------+--------+
+| EMPNO | ENAME | JOB     | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+-------+---------+------+------------+------+------+--------+
+|  7566 | Jones | Manager | 7839 | 1981-04-02 | 2975 | NULL |     30 |
+|  7698 | Blake | Manager | 7839 | 1980-05-01 | 2850 | NULL |     30 |
+|  7900 | James | Clerk   | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | Ford  | Analyst | 7566 | 1981-12-04 | 3000 | NULL |     20 |
++-------+-------+---------+------+------------+------+------+--------+
+4 rows in set (0.00 sec)
 
 
 
